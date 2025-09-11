@@ -1,69 +1,80 @@
-# React + TypeScript + Vite
+📝 Dự án Frontend Blog App
+📖 Giới thiệu
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Đây là ứng dụng Blog (frontend) cho phép người dùng đăng ký, đăng nhập, tạo bài viết, chỉnh sửa và xóa bài viết của mình.
+Dự án được xây dựng với React + TypeScript và sử dụng Ant Design để phát triển giao diện người dùng.
 
-Currently, two official plugins are available:
+Ứng dụng hỗ trợ:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Quản lý tài khoản (đăng ký, đăng nhập, đăng xuất).
 
-## Expanding the ESLint configuration
+CRUD bài viết (Create, Read, Update, Delete).
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Phân quyền: chỉ tác giả mới có thể chỉnh sửa hoặc xóa bài viết của mình.
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+Lazy Loading (Infinite Scroll): tải dần danh sách bài viết khi cuộn xuống cuối trang.
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+Thông báo (toast) khi thao tác thành công hoặc thất bại.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+🚀 Công nghệ sử dụng
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+React + TypeScript – framework chính.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Redux Toolkit – quản lý state (user, bài viết).
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+React Router DOM – điều hướng giữa các trang.
+
+Ant Design (antd) – UI components.
+
+React Hot Toast – hiển thị thông báo nhanh, đẹp.
+
+Axios – gọi API backend.
+
+Vite – công cụ build & dev server.
+
+✨ Tính năng chính
+🧑 Quản lý tài khoản
+
+Đăng ký tài khoản với validate (email hợp lệ, mật khẩu ≥ 6 ký tự).
+
+Đăng nhập / đăng xuất.
+
+Lưu trạng thái đăng nhập với Redux.
+
+📚 Quản lý bài viết
+
+Xem danh sách tất cả bài viết.
+
+Lọc “Bài viết của tôi” sau khi đăng nhập.
+
+Tạo bài viết mới (yêu cầu đăng nhập).
+
+Chỉnh sửa và xóa bài viết (chỉ tác giả).
+
+Lazy loading (tải thêm bài viết khi cuộn xuống cuối trang).
+
+🎨 UI/UX
+
+Responsive (hiển thị tốt trên mobile & desktop).
+
+Header + Footer rõ ràng.
+
+Modal xác nhận đăng nhập, modal tạo/chỉnh sửa bài viết.
+
+Thông báo toast khi thao tác thành công/thất bại.
+
+Ứng dụng frontend kết nối với backend API (Spring Boot) qua các endpoint:
+
+POST /api/auth/register – Đăng ký
+
+POST /api/auth/login – Đăng nhập
+
+GET /api/posts – Lấy danh sách bài viết (có phân trang)
+
+GET /api/user/posts – Lấy danh sách bài viết của user đang đăng nhập(có phân trang)
+
+POST /api/posts – Tạo bài viết mới
+
+PUT /api/posts – Cập nhật bài viết
+
+DELETE /api/posts/{id} – Xóa bài viết
