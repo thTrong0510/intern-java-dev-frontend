@@ -65,16 +65,26 @@ Thông báo toast khi thao tác thành công/thất bại.
 
 Ứng dụng frontend kết nối với backend API (Spring Boot) qua các endpoint:
 
-POST /api/auth/register – Đăng ký
+Auth
 
-POST /api/auth/login – Đăng nhập
+POST /api/v1/auth/register – Đăng ký
 
-GET /api/posts – Lấy danh sách bài viết (có phân trang)
+POST /api/v1/auth/login – Đăng nhập
 
-GET /api/user/posts – Lấy danh sách bài viết của user đang đăng nhập(có phân trang)
+POST /api/v1/auth/logout - Đăng xuất
 
-POST /api/posts – Tạo bài viết mới
+Post
 
-PUT /api/posts – Cập nhật bài viết
+GET /api/v1/posts – Lấy danh sách bài viết (có phân trang)
 
-DELETE /api/posts/{id} – Xóa bài viết
+POST /api/v1/posts – Tạo bài viết
+
+PUT /api/v1/posts – Cập nhật bài viết
+
+DELETE /api/v1/posts/{id} – Xóa bài viết
+
+User
+
+GET /api/v1/auth/account – Thông tin user hiện tại
+
+GET /api/v1/users – Tạo user
