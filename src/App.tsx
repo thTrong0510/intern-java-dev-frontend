@@ -1,33 +1,64 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import NotFound from "./components/share/not.found";
+import LoginPage from "./pages/auth/login";
+import RegisterPage from "./pages/auth/register";
+import Layout from "./pages/layout/layout";
+import HomePage from "./pages/home/homePage";
+import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import { useEffect, useState } from "react";
+import { setUserLoginInfo } from "./redux/slice/accountSlice";
+import { callFetchAccount } from "./config/api";
 
-function App() {
-  const [count, setCount] = useState(0)
 
+type TFilterType = "all" | "mine"
+
+const App = () => {
+
+  const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(state => state.account.isLoading);
+  const [filter, setFilter] = useState<TFilterType>("all")
+
+  useEffect(() => {
+    if (
+      window.location.pathname === '/login'
+      || window.location.pathname === '/register'
+    )
+      return;
+    getAccount()
+  }, [])
+
+  const getAccount = async () => {
+    const res = await callFetchAccount();
+    dispatch(setUserLoginInfo(res.data.data?.user))
+  }
+
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Layout setFilter={setFilter} />,
+      errorElement: <NotFound />,
+      children: [
+        {
+          index: true,
+          element: <HomePage filterType={filter} />
+        },
+      ],
+    },
+    {
+      path: "/login",
+      errorElement: <NotFound />,
+      element: <LoginPage />
+    },
+    {
+      path: "/register",
+      errorElement: <NotFound />,
+      element: <RegisterPage />
+    }
+
+  ]);
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <RouterProvider router={router} />
     </>
   )
 }
