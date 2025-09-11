@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { callRegister } from 'config/api';
 import styles from 'styles/auth.module.css';
 import type { IUser } from 'types/backend';
+import toast from 'react-hot-toast';
 const { Option } = Select;
 
 
@@ -17,15 +18,10 @@ const RegisterPage = () => {
         const res = await callRegister(name, email, password as string);
         setIsSubmit(false);
         if (res?.data?.data?.id) {
-            message.success('Đăng ký tài khoản thành công!');
+            toast.success('Đăng ký tài khoản thành công!');
             navigate('/login')
         } else {
-            notification.error({
-                message: "Có lỗi xảy ra",
-                description:
-                    res.data.message && Array.isArray(res.data.message) ? res.data.message[0] : res.data.message,
-                duration: 5
-            })
+            toast.error("Có lỗi xảy ra")
         }
     };
 
@@ -61,7 +57,10 @@ const RegisterPage = () => {
                                 } //whole column
                                 label="Email"
                                 name="email"
-                                rules={[{ required: true, message: 'Email không được để trống!' }]}
+                                rules={[
+                                    { required: true, message: 'Email không được để trống!' },
+                                    { type: "email", message: "Email không đúng định dạng!" }
+                                ]}
                             >
                                 <Input type='email' />
                             </Form.Item>
@@ -70,7 +69,10 @@ const RegisterPage = () => {
                                 labelCol={{ span: 24 }} //whole column
                                 label="Mật khẩu"
                                 name="password"
-                                rules={[{ required: true, message: 'Mật khẩu không được để trống!' }]}
+                                rules={[
+                                    { required: true, message: 'Mật khẩu không được để trống!' },
+                                    { min: 6, message: "Mật khẩu phải có ít nhất 6 ký tự!" }
+                                ]}
                             >
                                 <Input.Password />
                             </Form.Item>

@@ -6,6 +6,7 @@ import { useDispatch } from 'react-redux';
 import { setUserLoginInfo } from 'redux/slice/accountSlice';
 import styles from 'styles/auth.module.css';
 import { useAppSelector } from 'redux/hooks';
+import toast from 'react-hot-toast';
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -35,19 +36,13 @@ const LoginPage = () => {
             localStorage.setItem('access_token', res.data.data?.access_token!);
 
             dispatch(setUserLoginInfo(res.data.data?.user))
-            notification.success({
-                message: 'Login',
-                description:
-                    'Successfully'
-            });
+            toast.success(
+                'Login Successfully'
+            );
             window.location.href = callback ? callback : '/';
         } else {
-            notification.error({
-                message: "Có lỗi xảy ra",
-                description:
-                    res.data.message && Array.isArray(res.data.message) ? res.data.message[0] : res.data.message,
-                duration: 5
-            })
+            toast.error(
+                "Có lỗi xảy ra")
         }
     };
 

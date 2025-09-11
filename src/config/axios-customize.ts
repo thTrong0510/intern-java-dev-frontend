@@ -2,6 +2,7 @@ import type { IBackendRes } from "types/backend";
 import { Mutex } from "async-mutex";
 import axiosClient from "axios";
 import { notification } from "antd";
+import toast from "react-hot-toast";
 interface AccessTokenResponse {
     access_token: string;
 }
@@ -59,10 +60,10 @@ instance.interceptors.response.use(
         }
 
         if (+error.response.status === 403) {
-            notification.error({
-                message: error?.response?.data?.message ?? "",
-                description: error?.response?.data?.error ?? ""
-            })
+            toast.error(
+                error?.response?.data?.message ?? "",
+                error?.response?.data?.error ?? ""
+            )
         }
 
         return error?.response?.data ?? Promise.reject(error);

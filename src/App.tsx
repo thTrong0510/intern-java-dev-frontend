@@ -8,6 +8,7 @@ import { useAppDispatch, useAppSelector } from "./redux/hooks";
 import { useEffect, useState } from "react";
 import { setUserLoginInfo } from "./redux/slice/accountSlice";
 import { callFetchAccount } from "./config/api";
+import { Toaster } from "react-hot-toast";
 
 
 type TFilterType = "all" | "mine"
@@ -59,6 +60,7 @@ const App = () => {
   return (
     <>
       <RouterProvider router={router} />
+      <Toaster position="top-right" />
     </>
   )
 }
