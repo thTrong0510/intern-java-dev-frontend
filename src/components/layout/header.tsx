@@ -1,6 +1,7 @@
-import { Button, Space } from "antd";
+import { Button, Space, Modal } from "antd";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import { setLogoutAction } from "redux/slice/accountSlice";
+import { useState } from "react";
 
 type TFilterType = "all" | "mine";
 
@@ -12,7 +13,10 @@ export default function Header({ setFilter }: IProps) {
     const dispatch = useAppDispatch();
     const { user, isAuthenticated } = useAppSelector((state) => state.account);
 
-    const handleLogout = () => {
+    // State để điều khiển modal đăng xuất
+    const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
+
+    const handleConfirmLogout = () => {
         dispatch(setLogoutAction(null));
         window.location.assign("/login");
     };
@@ -48,7 +52,7 @@ export default function Header({ setFilter }: IProps) {
                         <span style={{ marginRight: 16 }}>
                             Xin chào, <b>{user.name}</b>
                         </span>
-                        <Button danger onClick={handleLogout}>
+                        <Button danger onClick={() => setIsLogoutModalOpen(true)}>
                             Đăng xuất
                         </Button>
                     </>
@@ -58,6 +62,19 @@ export default function Header({ setFilter }: IProps) {
                     </Button>
                 )}
             </div>
+
+            {/* Modal xác nhận đăng xuất */}
+            <Modal
+                title="Xác nhận đăng xuất"
+                open={isLogoutModalOpen}
+                onOk={handleConfirmLogout}
+                onCancel={() => setIsLogoutModalOpen(false)}
+                okText="Đăng xuất"
+                cancelText="Hủy"
+                okButtonProps={{ danger: true }}
+            >
+                <p>Bạn có chắc chắn muốn đăng xuất không?</p>
+            </Modal>
         </header>
     );
 }

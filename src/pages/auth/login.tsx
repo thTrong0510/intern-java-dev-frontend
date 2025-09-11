@@ -1,4 +1,4 @@
-import { Button, Divider, Form, Input, message, notification } from 'antd';
+import { Button, Divider, Form, Input } from 'antd';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { callLogin } from 'config/api';
 import { useState, useEffect } from 'react';
@@ -9,7 +9,6 @@ import { useAppSelector } from 'redux/hooks';
 import toast from 'react-hot-toast';
 
 const LoginPage = () => {
-    const navigate = useNavigate();
     const [isSubmit, setIsSubmit] = useState(false);
     const dispatch = useDispatch();
     const isAuthenticated = useAppSelector(state => state.account.isAuthenticated);
@@ -24,25 +23,23 @@ const LoginPage = () => {
         }
     }, [])
 
-    console.log(isAuthenticated)
-
     const onFinish = async (values: any) => {
         const { username, password } = values;
         setIsSubmit(true);
         const res = await callLogin(username, password);
-        setIsSubmit(false);
 
         if (res?.data) {
             localStorage.setItem('access_token', res.data.data?.access_token!);
 
             dispatch(setUserLoginInfo(res.data.data?.user))
-            toast.success(
-                'Login Successfully'
-            );
-            window.location.href = callback ? callback : '/';
+            toast.success('Login Successfully');
+            setTimeout(() => {
+                window.location.href = callback ? callback : '/';
+                setIsSubmit(false);
+            }, 1500);
         } else {
-            toast.error(
-                "Có lỗi xảy ra")
+            toast.error("email hoặc password không đúng")
+            setIsSubmit(false);
         }
     };
 
