@@ -4,7 +4,7 @@ import LoginPage from "./pages/auth/login";
 import RegisterPage from "./pages/auth/register";
 import Layout from "./pages/layout/layout";
 import HomePage from "./pages/home/homePage";
-import { useAppDispatch, useAppSelector } from "./redux/hooks";
+import { useAppDispatch } from "./redux/hooks";
 import { useEffect, useState } from "react";
 import { setUserLoginInfo } from "./redux/slice/accountSlice";
 import { callFetchAccount } from "./config/api";

@@ -17,7 +17,7 @@ export default function Header({ setFilter }: IProps) {
     const [isLogoutModalOpen, setIsLogoutModalOpen] = useState(false);
 
     const handleConfirmLogout = () => {
-        dispatch(setLogoutAction(null));
+        dispatch(setLogoutAction());
         window.location.assign("/login");
     };
 
