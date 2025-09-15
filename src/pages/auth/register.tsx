@@ -1,12 +1,10 @@
-import { Button, Divider, Form, Input, Row, Select, message, notification } from 'antd';
+import { Button, Divider, Form, Input } from 'antd';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { callRegister } from 'config/api';
 import styles from 'styles/auth.module.css';
 import type { IUser } from 'types/backend';
 import toast from 'react-hot-toast';
-const { Option } = Select;
-
 
 const RegisterPage = () => {
     const navigate = useNavigate();

@@ -9,8 +9,8 @@ import {
 import { Modal, Button } from "antd";
 import type { IPost } from "types/backend";
 import { useAppSelector } from "@/redux/hooks";
-import PostModal from "@/components/modal/PostModal";
 import toast from "react-hot-toast";
+import PostModal from "components/modal/postModal";
 
 interface HomePageProps {
     filterType: "all" | "mine";

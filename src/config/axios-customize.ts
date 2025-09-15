@@ -1,7 +1,6 @@
 import type { IBackendRes } from "types/backend";
 import { Mutex } from "async-mutex";
 import axiosClient from "axios";
-import { notification } from "antd";
 import toast from "react-hot-toast";
 interface AccessTokenResponse {
     access_token: string;

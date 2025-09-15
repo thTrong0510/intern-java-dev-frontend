@@ -16,7 +16,6 @@ type TFilterType = "all" | "mine"
 const App = () => {
 
   const dispatch = useAppDispatch();
-  const isLoading = useAppSelector(state => state.account.isLoading);
   const [filter, setFilter] = useState<TFilterType>("all")
 
   useEffect(() => {
